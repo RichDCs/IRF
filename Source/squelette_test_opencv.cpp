@@ -26,6 +26,7 @@ int main (void) {
 	Mat imout;
 	if(im.data == NULL){
 		cerr << "Image not found: "<< imName << endl;
+		system("pause");
 		exit(0);
 	}
 	imshow("exemple1", im);
