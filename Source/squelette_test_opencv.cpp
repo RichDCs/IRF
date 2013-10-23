@@ -20,7 +20,7 @@ using namespace std;
 int main (void) {
 
 	//charge et affiche l'image 
-	string imName = "00000.png";
+	string imName = "img/00000.png";
 	//string imName = "arc.jpg";
 	Mat im = imread(imName);
 	Mat imout;
@@ -59,7 +59,7 @@ int main (void) {
 	threshold(imout2, imout2, 245, 255, 0);
 	imshow("out2", imout2);
 
-	IplImage *img = cvLoadImage("00000.png",1);
+	IplImage *img = cvLoadImage("img/00000.png",1);
 	IplImage *img_dest;
 
 	CvRect ROI = cvRect(0, 0, 2000, 2000);
