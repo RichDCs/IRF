@@ -121,7 +121,8 @@ void MatchingMethod( int, void* )
   rectangle( img_display, matchLoc, Point( matchLoc.x + template_usable.cols , matchLoc.y + template_usable.rows ), Scalar(255,0,255), 2, 8, 0 );
   rectangle( result, matchLoc, Point( matchLoc.x + template_usable.cols , matchLoc.y + template_usable.rows ), Scalar(255,0,255), 2, 8, 0 );
 
-  circle(img_display, Point( matchLoc.x + template_usable.size().width/2, matchLoc.y + template_usable.size().height/2), 5, Scalar(0,0,255), 1, 8, 0);
+  //TODO : tester pourquoi l'efficacité est meilleure avec '-1'
+  circle(img_display, Point( matchLoc.x - 1 + template_usable.size().width/2, matchLoc.y - 1 + template_usable.size().height/2), 5, Scalar(0,0,255), 1, 8, 0);
 
   imshow( image_window, img_display );
   imshow( result_window, result );
