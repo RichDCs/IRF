@@ -75,3 +75,67 @@ void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& or
   i++;
   return;
 }
+
+double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
+
+
+	/* configure a mask for the top_image and the bottom_image, split in middle */
+	Rect roi_middle_up = Rect( 0, 0, full_image.size().width, full_image.size().height/2 );
+	Rect roi_middle_down = Rect( 0, full_image.size().height/2, full_image.size().width, full_image.size().height/2 );
+
+	/* apply a mask, to split image into 2 parts*/
+	Mat full_image_usable_up = full_image(roi_middle_up);
+	Mat full_image_usable_down = full_image(roi_middle_down);
+
+	/*********** If you want to add rotation on the source image *******************
+	double angle = 0 ;
+	rotateE(full_image, angle, full_image);
+	rotateE(full_image_usable_up, angle, full_image_usable_up);
+	rotateE(full_image_usable_down, angle, full_image_usable_down);
+	/*******************************************************************************/
+
+	Point origine_cross_up;
+	Point origine_cross_down;
+
+	MatchingMethod( full_image_usable_up, image_reference, origine_cross_up );
+	printf("Coordonnees 1ere croix :\n x : %d\n y : %d\n", origine_cross_up.x, origine_cross_up.y);
+
+	MatchingMethod( full_image_usable_down, image_reference, origine_cross_down );
+	printf("\n\nCoordonnees 2eme croix :\n x : %d\n y : %d\n", origine_cross_down.x, origine_cross_down.y);
+	origine_cross_down.y += full_image.size().height/2 ;
+	printf("\n\nCoordonnees 2eme croix (img complete) :\n x : %d\n y : %d\n\n", origine_cross_down.x, origine_cross_down.y);
+
+
+/*
+*		 origine_cross_up
+*		/|
+*  hyp / |
+* ------------
+*	 /	 | op
+*	/____|
+*	^   adj
+*	origine_cross_down
+*/
+
+	double op = origine_cross_down.y - origine_cross_up.y ;
+	double adj = origine_cross_up.x - origine_cross_down.x ;
+	double hyp = sqrt( pow(op,2) + pow(adj,2) );
+
+	/* Compute the angle */
+	double result_tan, result_cos, result_sin ;
+	result_tan = atan( (double)(op) / (adj) ) ;// tan(angle) = op / adj
+	printf("resultat angle (tan) : %f degres\n", result_tan * 180 / M_PI );
+
+	result_cos = acos( (double)(adj) / (hyp) ) ;
+	printf("resultat angle (cos) : %f degres\n", result_cos * 180 / M_PI );
+
+	result_sin = asin( (double)(op) / (hyp) ) ;
+	printf("resultat angle (sin) : %f degres\n", result_sin * 180 / M_PI );
+
+	double mean_angle = (result_tan + result_cos + result_sin)/3 ;
+	printf("\nangle moyen : %f degres\n", mean_angle * 180 / M_PI );
+	double correction_angle = ANGLE_REFERENCE - (mean_angle * 180 / M_PI) ;
+	printf("inclinaison image : %f degres\n",  correction_angle);
+
+	return correction_angle ;
+}
