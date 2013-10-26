@@ -16,14 +16,13 @@ using namespace std;
 #include <math.h>
 #define M_PI 3.14159265358979323846264338327
 
-char* image_window = "Source Image";
-char* result_window = "Result window";
+char name_windows[20];
 
 int match_method = 5; // > 5 est la plus performante > testée jusqu'à +/- 12°
 int max_Trackbar = 5;
 
 /* headers*/
-void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image );
+void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& origin_template );
 void rotateE(cv::Mat& src, double angle, cv::Mat& dst);
 
 int main (void) {
@@ -40,14 +39,16 @@ int main (void) {
 	Rect roi_middle_up = Rect( 0, 0, full_image_resized.size().width, full_image_resized.size().height/2 );
 	Rect roi_middle_down = Rect( 0, full_image_resized.size().height/2, full_image_resized.size().width, full_image_resized.size().height/2 );
 
-	/* apply a mask (or not, choose one of three)*/
-	//full_image_usable = full_image_resized;
-	full_image_usable = full_image_resized(roi_middle_up);
-	//full_image_usable = full_image_resized(roi_middle_down);
+	/* apply a mask, to split image into 2 parts*/
+	full_image_usable = full_image_resized;
+	Mat full_image_usable_up = full_image_resized(roi_middle_up);
+	Mat full_image_usable_down = full_image_resized(roi_middle_down);
 
 	/*********** If you want to add rotation on the source image *******************/
-	double angle = -12 ;
+	double angle = 5 ;
 	rotateE(full_image_usable, angle, full_image_usable);
+	rotateE(full_image_usable_up, angle, full_image_usable_up);
+	rotateE(full_image_usable_down, angle, full_image_usable_down);
 	/*******************************************************************************/
 
 	/*Load the template (the cross) and apply a reduction */
@@ -56,16 +57,16 @@ int main (void) {
 	resize( template_cross, template_usable/*********/, size_template );	
 
 
-
-	/// Create windows
-	namedWindow( image_window, CV_WINDOW_AUTOSIZE );
-	namedWindow( result_window, CV_WINDOW_AUTOSIZE );
-
 	/// Create Trackbar
 //	char* trackbar_label = "Method: \n 0: SQDIFF \n 1: SQDIFF NORMED \n 2: TM CCORR \n 3: TM CCORR NORMED \n 4: TM COEFF \n 5: TM COEFF NORMED";
 //	createTrackbar( trackbar_label, image_window, &match_method, max_Trackbar, MatchingMethod );
+	Point origine_template;
 
-	MatchingMethod( full_image_usable, template_usable );
+	MatchingMethod( full_image_usable_up, template_usable, origine_template );
+	printf("Coordonnees 1ere croix :\n x : %d\n y : %d\n", origine_template.x, origine_template.y);
+
+	MatchingMethod( full_image_usable_down, template_usable, origine_template );
+	printf("\n\nCoordonnees 2eme croix :\n x : %d\n y : %d\n", origine_template.x, origine_template.y);
 
 	//termine le programme lorsqu'une touche est frappee
 	waitKey(0);
@@ -86,9 +87,14 @@ void rotateE(cv::Mat& src, double angle, cv::Mat& dst)
 /**
  * @function MatchingMethod
  * @brief Trackbar callback
+ * @arg
+ *		full_image : image for source
+ *		template_image : image that you want to find in source
+ *		origin_template : Point of the matching template found in the image source
  */
-void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image )
+void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& origin_template )
 {
+  static unsigned int i ;
   Mat result;//step by step
   /// Source image to display
   Mat img_display;
@@ -121,10 +127,16 @@ void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image )
   rectangle( result, matchLoc, Point( matchLoc.x + template_image.cols , matchLoc.y + template_image.rows ), Scalar(255,0,255), 2, 8, 0 );
 
   //TODO : tester pourquoi l'efficacité est meilleure avec '-1'
-  circle(img_display, Point( matchLoc.x - 1 + template_image.size().width/2, matchLoc.y - 1 + template_image.size().height/2), 5, Scalar(0,0,255), 1, 8, 0);
+  origin_template.x = matchLoc.x - 1 + template_image.size().width/2 ;
+  origin_template.y = matchLoc.y - 1 + template_image.size().height/2 ;
+  circle(img_display, origin_template, 5, Scalar(0,0,255), 1, 8, 0);
 
-  imshow( image_window, img_display );
-  imshow( result_window, result );
+  sprintf(name_windows, "Source Image - %d", i);
+  imshow( name_windows, img_display );
 
+  sprintf(name_windows, "Result Image - %d", i);
+  imshow( name_windows, result );
+
+  i++;
   return;
 }
