@@ -12,10 +12,35 @@ using namespace cv;
 using namespace std;
 
 #include "warping.h"
+#include "folders.h"
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
 
 int main(void){
+
+	cout << "main\n";
+	
+	// paires de test
+	Point2f p1 = (1.0, 1.0);
+	Point2f p2 = (2.0, 2.0);
+	Point2f p3 = (3.0, 3.0);
+	Point2f p4 = (4.0, 4.0);
+	pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>> paire_test1 = std::make_pair(p1, p2);
+	pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>> paire_test2 = std::make_pair(p3, p4);
+	
+	// vector de test
+	vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>> vecteur = vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>();
+	vecteur.clear();
+	vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>::iterator it;
+	it = vecteur.begin();
+	it = vecteur.insert(it, paire_test1);
+	it = vecteur.insert(++it, paire_test2);
+
+	// map de test
+	map<string, vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>> pict = map<string, vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>>();
+	pict.insert(make_pair("banane", vecteur));
+
+	output_pictogrammes(pict, "C:/Users/Bamako/Downloads");
 
 	Mat image_test = imread( "img/00000.png", 1 );
 	Mat image_reference = imread( "img/template.png", 1 );
