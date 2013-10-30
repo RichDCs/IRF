@@ -61,7 +61,8 @@ void output_pictogrammes(std::map<std::string, std::vector<std::pair<reference_w
 		for (it_vect = it->second.begin(); it_vect != it->second.end(); ++it_vect)
 		{
 			// appliquer la fonction pour créer une imagette (grace à la paire de points) à l'endroit pict_folder
-			
+			cout << it_vect->first.get() << "\n";
+			cout << it_vect->second.get() << "\n";
 		}
 	}
 

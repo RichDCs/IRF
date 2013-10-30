@@ -21,10 +21,10 @@ int main(void){
 	cout << "main\n";
 	
 	// paires de test
-	Point2f p1 = (1.0, 1.0);
-	Point2f p2 = (2.0, 2.0);
-	Point2f p3 = (3.0, 3.0);
-	Point2f p4 = (4.0, 4.0);
+	Point2f p1 (0.33f, 0.1f);
+	Point2f p2 (2.f, 2.f);
+	Point2f p3 (3.f, 3.f);
+	Point2f p4 (4.f, 4.f);
 	pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>> paire_test1 = std::make_pair(p1, p2);
 	pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>> paire_test2 = std::make_pair(p3, p4);
 	
