@@ -37,10 +37,20 @@ int main(void){
 	it = vecteur.insert(++it, paire_test2);
 
 	// map de test
-	map<string, vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>> pict = map<string, vector<pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>>();
+	vectorMap pict = vectorMap();
 	pict.insert(make_pair("banane", vecteur));
 
-	output_pictogrammes(pict, "C:/Users/Bamako/Downloads");
+	string path = "C:/Users/Bamako/Downloads";
+	try
+	{
+		initialize_folders(path);
+		output_pictogrammes(pict, path);
+		pict = input_pictogrammes(pict, path);
+	}
+	catch (exception& e)
+	{
+		std::cerr << "exception caught: " << e.what() << '\n';
+	}
 
 	Mat image_test = imread( "img/00000.png", 1 );
 	Mat image_reference = imread( "img/template.png", 1 );
