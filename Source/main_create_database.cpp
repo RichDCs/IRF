@@ -44,8 +44,8 @@ int main(void){
 	try
 	{
 		initialize_folders(path);
-		output_pictogrammes(pict, path);
 		pict = input_pictogrammes(pict, path);
+		output_pictogrammes(pict, path);
 	}
 	catch (exception& e)
 	{

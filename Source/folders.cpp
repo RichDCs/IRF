@@ -64,6 +64,13 @@ void output_pictogrammes(vectorMap map, string path) {
 	cout << "output_pictogrammes";
 }
 
+/// <summary>
+/// Scans the content of the input_pictogrammes folder for files,
+/// and adds their name into the map
+/// </summary>
+/// <param name="map">The map.</param>
+/// <param name="path">The path.</param>
+/// <returns>The modified map</returns>
 vectorMap input_pictogrammes(vectorMap map, string path) {
 	string input_folder = path + "/input_pictogrammes/*";
 	
