@@ -49,9 +49,11 @@ void output_pictogrammes(vectorMap map, string path) {
 	string output_folder = path + "/output_pictogrammes";
 	
 	for (it = map.begin(); it != map.end(); ++it) {
-		string pict_folder = output_folder + "/" + it->first;
-		cout << "Creating " + pict_folder + "\n";
-		create_folder(pict_folder);
+		if (!it->second.empty()) {
+			string pict_folder = output_folder + "/" + it->first;
+			cout << "Creating " + pict_folder + "\n";
+			create_folder(pict_folder);
+		}
 
 		// iterer sur les points pour extraire les imagettes et les mettre dans le dossier crée.
 		std::vector<std::pair<reference_wrapper<Point2f>, reference_wrapper<Point2f>>>::iterator it_vect;
