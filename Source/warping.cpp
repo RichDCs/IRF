@@ -62,8 +62,8 @@ void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& or
   rectangle( result, matchLoc, Point( matchLoc.x + template_image.cols , matchLoc.y + template_image.rows ), Scalar(255,0,255), 2, 8, 0 );
 
   //TODO : tester pourquoi l'efficacité est meilleure avec '-1'
-  origin_template.x = matchLoc.x - 1 + template_image.size().width/2 ;
-  origin_template.y = matchLoc.y - 1 + template_image.size().height/2 ;
+  origin_template.x = matchLoc.x /*- 1*/ + template_image.size().width/2 ;
+  origin_template.y = matchLoc.y /*- 1*/ + template_image.size().height/2 ;
   circle(img_display, origin_template, 5, Scalar(0,0,255), 1, 8, 0);
 
   sprintf(name_windows, "Source Image - %d", i);
@@ -78,6 +78,12 @@ void MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& or
 
 double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 
+	/*********** If you want to add rotation on the source image *******************
+	double angle = 0.5 ;
+	rotateE(full_image, angle, full_image);
+	//rotateE(full_image_usable_up, angle, full_image_usable_up);
+	//rotateE(full_image_usable_down, angle, full_image_usable_down);
+	/*******************************************************************************/
 
 	/* configure a mask for the top_image and the bottom_image, split in middle */
 	Rect roi_middle_up = Rect( 0, 0, full_image.size().width, full_image.size().height/2 );
@@ -86,13 +92,6 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 	/* apply a mask, to split image into 2 parts*/
 	Mat full_image_usable_up = full_image(roi_middle_up);
 	Mat full_image_usable_down = full_image(roi_middle_down);
-
-	/*********** If you want to add rotation on the source image *******************
-	double angle = 0 ;
-	rotateE(full_image, angle, full_image);
-	rotateE(full_image_usable_up, angle, full_image_usable_up);
-	rotateE(full_image_usable_down, angle, full_image_usable_down);
-	/*******************************************************************************/
 
 	Point origine_cross_up;
 	Point origine_cross_down;
@@ -104,7 +103,7 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 	printf("\n\nCoordonnees 2eme croix :\n x : %d\n y : %d\n", origine_cross_down.x, origine_cross_down.y);
 	origine_cross_down.y += full_image.size().height/2 ;
 	printf("\n\nCoordonnees 2eme croix (img complete) :\n x : %d\n y : %d\n\n", origine_cross_down.x, origine_cross_down.y);
-
+	imshow( "image base", full_image );
 
 /*
 *		 origine_cross_up
