@@ -55,6 +55,7 @@ int main(void){
 	Mat image_test = imread( "img/00000.png", 1 );
 	Mat image_reference = imread( "img/template.png", 1 );
 
+	cout << "\n\n" ;
 /**** redimensionner images pour les tests ****/
 	#if DEBUG_LEVEL > 0
 	int reduction_factor = 4;
