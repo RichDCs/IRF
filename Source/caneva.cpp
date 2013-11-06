@@ -12,8 +12,8 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 
 	caneva_pts.x[FIRST_VERTICAL_COL] = 30 ; //= le haut de l'image (!=0 pour voir un bord)
 
-	caneva_pts.x[1] = cross_down.x ; //encadre le symbole propre
-	caneva_pts.x[2] = cross_down.x+30 ;
+	caneva_pts.x[1] = cross_down.x-20 ; //encadre le symbole propre
+	caneva_pts.x[2] = cross_down.x+40 ;
 
 	caneva_pts.x[3] = cross_down.x + 90 ;	//encadre la 1ere colone d'image
 	caneva_pts.x[4] = cross_down.x + 130;
@@ -37,13 +37,13 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.y[FIRST_VERTICAL_LINE] = cross_up.y ;		//colone de bord de l'image (!=0 pour voir un bord)
 
 	caneva_pts.y[1] = cross_up.y + 70;		//encadre la 1eme ligne d'imagette dessinée main
-	caneva_pts.y[2] = cross_up.y + 110 ;
+	caneva_pts.y[2] = cross_up.y + 112 ;
 
 	caneva_pts.y[3] = cross_up.y + 150 ;	//encadre la 2eme ligne d'imagette dessinée main
 	caneva_pts.y[4] = cross_up.y + 190 ;
 
-	caneva_pts.y[5] = cross_up.y + 240 ;	//encadre la 3eme ligne d'imagette dessinée main
-	caneva_pts.y[6] = cross_up.y + 270 ;
+	caneva_pts.y[5] = cross_up.y + 238 ;	//encadre la 3eme ligne d'imagette dessinée main
+	caneva_pts.y[6] = cross_up.y + 273 ;
 
 	caneva_pts.y[7] = cross_up.y + 320 ;	//encadre la 4eme ligne d'imagette dessinée main
 	caneva_pts.y[8] = cross_up.y + 360 ;
@@ -54,8 +54,8 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.y[11] = cross_up.y + 480 ;	//encadre la 6eme ligne d'imagette dessinée main
 	caneva_pts.y[12] = cross_up.y + 520 ;
 
-	caneva_pts.y[13] = cross_up.y + 570 ;	//encadre la 7eme ligne d'imagette dessinée main
-	caneva_pts.y[14] = cross_up.y + 600 ;
+	caneva_pts.y[13] = cross_up.y + 568 ;	//encadre la 7eme ligne d'imagette dessinée main
+	caneva_pts.y[14] = cross_up.y + 603 ;
 
 	caneva_pts.y[LAST_VERTICAL_LINE] = cross_down.y ;
 }

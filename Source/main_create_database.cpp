@@ -18,6 +18,7 @@ using namespace std;
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
 
+int reduction_factor ;
 extern can_pt caneva_pts ;
 
 int main(void){
@@ -64,7 +65,7 @@ int main(void){
 	cout << "\n\n" ;
 /**** redimensionner images pour les tests ****/
 	#if DEBUG_LEVEL > 0
-	int reduction_factor = 4;
+	reduction_factor = 4;
 	Size size_image_test( image_test.cols/reduction_factor, image_test.rows/reduction_factor);
 	resize(image_test, image_test, size_image_test );
 	Size size_image_reference( image_reference.cols/reduction_factor, image_reference.rows/reduction_factor );
@@ -94,12 +95,14 @@ int main(void){
 
 /**** reconnaitre le symbole en tête de chaque ligne ****/
 	Mat img_extract ;
+	int id_picto ;
 	for(int i = 0 ; i < 7 ; i++){
 		/*extraction de l'image de tête*/
 		extractImage(image_test, img_extract, caneva_pts.x[1], caneva_pts.y[2*i+1], caneva_pts.x[2], caneva_pts.y[2*i+2]);
 		imshow( "img_ext:" + ('0' + i) , img_extract );
 
 		/********* ---> ICI : comparer cette image avec la base des pictogrammes (Martin) */
+		id_picto = match_img(img_extract);
 
 		/* extraction de la ligne + enregistrement sous le bon nom */
 		for(int j=0; j<5 ; j++){
