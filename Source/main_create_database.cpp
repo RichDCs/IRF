@@ -13,6 +13,7 @@ using namespace std;
 
 #include "warping.h"
 #include "folders.h"
+#include "caneva.h"
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
 
@@ -82,6 +83,11 @@ int main(void){
 /**** reconnaitre le symbole en tête de chaque ligne ****/
 
 /**** isoler et enregistrer chaque rectangle de la ligne ****/
+	Point cross_up, cross_down;
+	find_crosses(image_test, image_reference, cross_up, cross_down);
+	create_caneva(image_test, cross_up, cross_down);
+	show_caneva(image_test);
+	imshow( "image avec caneva", image_test );
 
 
 
