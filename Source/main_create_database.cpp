@@ -19,7 +19,7 @@ using namespace std;
 int main(void){
 
 	cout << "main\n";
-	
+/*	
 	// paires de test
 	Point2f p1 (0.33f, 0.1f);
 	Point2f p2 (2.f, 2.f);
@@ -51,9 +51,11 @@ int main(void){
 	{
 		std::cerr << "exception caught: " << e.what() << '\n';
 	}
+	*/
 
 	Mat image_test = imread( "img/00000.png", 1 );
 	Mat image_reference = imread( "img/template.png", 1 );
+	
 
 	cout << "\n\n" ;
 /**** redimensionner images pour les tests ****/

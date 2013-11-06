@@ -80,32 +80,17 @@ double MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& 
 }
 
 double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
-	double result_warping ;
-
+	
 	/*********** If you want to add rotation on the source image *******************/
 	double angle = 0 ;
 	rotateE(full_image, angle, full_image);
+	imshow( "image base", full_image );
 	/*******************************************************************************/
-
-	/* configure a mask for the top_image and the bottom_image, split in middle */
-	Rect roi_middle_up = Rect( 0, 0, full_image.size().width, full_image.size().height/2 );
-	Rect roi_middle_down = Rect( 0, full_image.size().height/2, full_image.size().width, full_image.size().height/2 );
-
-	/* apply a mask, to split image into 2 parts*/
-	Mat full_image_usable_up = full_image(roi_middle_up);
-	Mat full_image_usable_down = full_image(roi_middle_down);
 
 	Point origine_cross_up;
 	Point origine_cross_down;
 
-	result_warping = MatchingMethod( full_image_usable_up, image_reference, origine_cross_up );
-	printf("Coordonnees 1ere croix :\n x : %d\n y : %d\nmatch : %lf\n", origine_cross_up.x, origine_cross_up.y,result_warping);
-
-	result_warping = MatchingMethod( full_image_usable_down, image_reference, origine_cross_down );
-	printf("\n\nCoordonnees 2eme croix :\n x : %d\n y : %d\nmatch : %lf\n", origine_cross_down.x, origine_cross_down.y,result_warping);
-	origine_cross_down.y += full_image.size().height/2 ;
-	printf("\n\nCoordonnees 2eme croix (img complete) :\n x : %d\n y : %d\n\n", origine_cross_down.x, origine_cross_down.y);
-	imshow( "image base", full_image );
+	find_crosses( full_image, image_reference, origine_cross_up, origine_cross_down );
 
 /*
 *		 origine_cross_up
