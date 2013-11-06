@@ -88,6 +88,8 @@ int main(void){
 	create_caneva(image_test, cross_up, cross_down);
 	image_test.copyTo( image_caneva );
 	show_caneva( image_caneva );
+	circle(image_caneva, cross_up, 5, Scalar(100,0,255), 1, 8, 0);
+	circle(image_caneva, cross_down, 5, Scalar(100,0,255), 1, 8, 0);
 	imshow( "image avec caneva", image_caneva );
 
 /**** reconnaitre le symbole en tête de chaque ligne ****/
