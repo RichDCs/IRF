@@ -13,7 +13,7 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.x[FIRST_VERTICAL_COL] = 30 ; //= le haut de l'image (!=0 pour voir un bord)
 
 	caneva_pts.x[1] = cross_down.x-20 ; //encadre le symbole propre
-	caneva_pts.x[2] = cross_down.x+40 ;
+	caneva_pts.x[2] = cross_down.x+50 ;
 
 	caneva_pts.x[3] = cross_down.x + 90 ;	//encadre la 1ere colone d'image
 	caneva_pts.x[4] = cross_down.x + 130;
@@ -36,8 +36,8 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 
 	caneva_pts.y[FIRST_VERTICAL_LINE] = cross_up.y ;		//colone de bord de l'image (!=0 pour voir un bord)
 
-	caneva_pts.y[1] = cross_up.y + 70;		//encadre la 1eme ligne d'imagette dessinée main
-	caneva_pts.y[2] = cross_up.y + 112 ;
+	caneva_pts.y[1] = cross_up.y + 62;		//encadre la 1eme ligne d'imagette dessinée main
+	caneva_pts.y[2] = cross_up.y + 125 ;
 
 	caneva_pts.y[3] = cross_up.y + 150 ;	//encadre la 2eme ligne d'imagette dessinée main
 	caneva_pts.y[4] = cross_up.y + 190 ;

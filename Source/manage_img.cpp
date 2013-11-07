@@ -13,13 +13,21 @@ void saveImage(Mat& src, string name){
 	;
 }
 
-struct database_picto db_picto[NB_PICTO_BASE] = {
+struct database_picto db_picto[] = {
 	{"img/pictos/bombe.png", "bombe"},
 	{"img/pictos/flamme.png", "flamme"},
+	{"img/pictos/parking.png", "parking"},
+	{"img/pictos/homme.png", "homme"},
 	{"img/pictos/voiture.png", "voiture"}
 };
 
-int match_img(Mat& img_extract){
+struct database_picto db_text[] = {
+	{"img/text/large.png", "large"},
+	{"img/text/medium.png", "medium"},
+	{"img/text/small.png", "small"}
+};
+
+int match_img(Mat& img_extract, int type_base){
 	int match_method = 5;
 	int id_picto = 0 ;
 
@@ -29,8 +37,22 @@ int match_img(Mat& img_extract){
 	double minVal,maxVal,matchVal,max_matchVal=0;
 	Point minLoc, maxLoc, matchLoc;
 
-	for(int i = 0 ; i < NB_PICTO_BASE ; i++){
-		img_picto = imread(db_picto[i].path, 1);
+	int database_size ;
+	struct database_picto *db_use ;
+
+	if(type_base == MATCH_IMG ){
+		database_size = sizeof(db_picto)/sizeof(struct database_picto) ;
+		db_use = db_picto;
+	}
+	else if(type_base == MATCH_TXT ){
+		database_size = sizeof(db_text)/sizeof(struct database_picto) ;
+		db_use = db_text;
+	}
+	else
+		exit(52);
+
+	for(int i = 0 ; i < database_size ; i++){
+		img_picto = imread(db_use[i].path, 1);
 
 		if (img_extract.empty() || img_picto.empty()){
 			cout << "Error : Image cannot be loaded..!!" << endl;
@@ -65,10 +87,10 @@ int match_img(Mat& img_extract){
 	}
 
 	if(max_matchVal > 0.5)
-		printf("\n--> good match max_v:%lf | id:%d | description:%s", max_matchVal, id_picto, db_picto[id_picto].description.c_str() );
+		printf("\n--> good match> max_v:%0.2lf | id:%d | description:   %s", max_matchVal, id_picto, db_use[id_picto].description.c_str() );
 	else
 		printf("\nno match");
-	cout << "\n\n" ;
+	cout << "\n" ;
 
 	return id_picto;
 }

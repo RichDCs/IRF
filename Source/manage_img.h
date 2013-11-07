@@ -10,7 +10,8 @@ using namespace cv;
 
 #include "warping.h"
 
-#define NB_PICTO_BASE 3
+#define MATCH_IMG 0
+#define MATCH_TXT 1
 
 
 struct database_picto{
@@ -21,6 +22,6 @@ struct database_picto{
 
 void extractImage(Mat& src, Mat& dst, int x1, int y1, int x2, int y2);
 void saveImage(Mat& src, string name);
-int match_img(Mat& img_extract);
+int match_img(Mat& img_extract, int type_base);
 
 #endif
