@@ -18,13 +18,15 @@ struct database_picto db_picto[] = {
 	{"img/pictos/flamme.png", "flamme"},
 	{"img/pictos/parking.png", "parking"},
 	{"img/pictos/homme.png", "homme"},
-	{"img/pictos/voiture.png", "voiture"}
+	{"img/pictos/voiture.png", "voiture"},
+	/*vous pouvez ajouter directement des lignes ici -> les boucles utilisent des "sizeof(struct)" pour le nb d'elements */
 };
 
 struct database_picto db_text[] = {
 	{"img/text/large.png", "large"},
 	{"img/text/medium.png", "medium"},
-	{"img/text/small.png", "small"}
+	{"img/text/small.png", "small"},
+	/*vous pouvez ajouter directement des lignes ici -> les boucles utilisent des "sizeof(struct)" pour le nb d'elements */
 };
 
 int match_img(Mat& img_extract, int type_base){

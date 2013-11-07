@@ -77,7 +77,7 @@ int main(void){
 		/* extraction de la ligne + enregistrement sous le bon nom */
 		for(int j=0; j<5 ; j++){
 			extractImage(image_test, img_extract, caneva_pts.x[2*j+1], caneva_pts.y[2*i+1], caneva_pts.x[2*j+2], caneva_pts.y[2*i+2]);
-			//imshow( "img_ext_line:" + ('0' + 10*i) + j, img_extract );//si vous voulez 
+			//imshow( "img_ext_line:" + ('0' + 10*i) + j, img_extract );   //si vous voulez voir les 5 images extraites de la ligne en cours
 
 			//TODO : void saveImage(img_extract, "un joli petit nom bien formaté ici en fonction du type");
 			/* utiliser :
