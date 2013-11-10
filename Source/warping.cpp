@@ -70,7 +70,7 @@ double MatchingMethod( cv::Mat& full_image, cv::Mat& template_image, cv::Point& 
   circle(img_display, origin_template, 5, Scalar(0,0,255), 1, 8, 0);
 
   sprintf(name_windows, "Source Image - %d", i);
-  imshow( name_windows, img_display );
+  //imshow( name_windows, img_display );
 
   //sprintf(name_windows, "Result Image - %d", i);
   //imshow( name_windows, result );
@@ -84,7 +84,7 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 	/*********** If you want to add rotation on the source image *******************/
 	double angle = 0 ;
 	rotateE(full_image, angle, full_image);
-	imshow( "image base", full_image );
+	//imshow( "image base", full_image );
 	/*******************************************************************************/
 
 	Point origine_cross_up;
