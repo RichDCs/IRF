@@ -147,7 +147,7 @@ int main(void){
 					// chemin d'accès aux deux fichiers de sortie
 					string identifiantIcone = "";
 					string taille = "";
-					string path_out = "sortie/"+identifiantIcone+"_"+numeroScripteur+"_"+numeroPage+"_"+ligne+"_"+colonne;
+					string path_out = "data/"+identifiantIcone+"_"+numeroScripteur+"_"+numeroPage+"_"+ligne+"_"+colonne;
 					string path_out_png = path_out+".png";
 					string path_out_txt = path_out+".txt";
 
