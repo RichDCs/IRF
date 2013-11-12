@@ -1,6 +1,6 @@
 #ifndef CAN_H
 #define CAN_H
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 using namespace std;
 #include <map>

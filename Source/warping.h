@@ -1,4 +1,6 @@
 #ifndef WARPING_H
+#define WARPING_H
+#define _CRT_SECURE_NO_WARNINGS
 
 	#include "cv.h"
 	#include "highgui.h"

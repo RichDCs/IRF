@@ -18,6 +18,7 @@ using namespace std;
 //#include "folders.h"
 #include "caneva.h"
 #include "manage_img.h"
+#include <Windows.h>
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
 #define NB_REPOSITORY 1 // 35
@@ -31,6 +32,10 @@ extern struct database_picto db_text[];
 int main(void){
 
 	cout << "main\n";
+/*** dossier necessaires ***/
+	system("mkdir sortie");
+	system("mkdir data");
+
 /**** Template de la croix ****/
 	Mat image_reference = imread( "img/template.png", 1 );
 	

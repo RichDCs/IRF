@@ -87,7 +87,7 @@ vectorMap input_pictogrammes(vectorMap map, string path) {
 		while (FindNextFile(hFind, &FindFileData) != 0) {
 			string filename = "";
 			cout << "File found: ";
-			for (int i = 0; i < wcslen(FindFileData.cFileName); ++i) {
+			for (size_t i = 0; i < wcslen(FindFileData.cFileName); ++i) {
 				cout << char(FindFileData.cFileName[i]);
 				filename += char(FindFileData.cFileName[i]);
 			}

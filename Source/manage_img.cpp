@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "manage_img.h"
 extern int reduction_factor ;
 
