@@ -1,4 +1,4 @@
-
+#define _CRT_SECURE_NO_WARNINGS
 #include "manage_img.h"
 extern int reduction_factor ;
 
@@ -14,11 +14,20 @@ void saveImage(Mat& src, string name){
 }
 
 struct database_picto db_picto[] = {
+	{"img/pictos/allonge.png", "allonge"},
+	{"img/pictos/attention.png", "attention"},
 	{"img/pictos/bombe.png", "bombe"},
+	{"img/pictos/croix.png", "croix"},
 	{"img/pictos/flamme.png", "flamme"},
-	{"img/pictos/parking.png", "parking"},
+	{"img/pictos/fleche.png", "fleche"},
 	{"img/pictos/homme.png", "homme"},
+	{"img/pictos/interdit.png", "interdit"},
+	{"img/pictos/parking.png", "parking"},
+	{"img/pictos/tetemort.png", "tetemort"},
+	{"img/pictos/trianglef.png", "trianglef"},
+	{"img/pictos/vague.png", "vague"},
 	{"img/pictos/voiture.png", "voiture"},
+	{"img/pictos/zzz.png", "zzz"},
 	/*vous pouvez ajouter directement des lignes ici -> les boucles utilisent des "sizeof(struct)" pour le nb d'elements */
 };
 
@@ -90,8 +99,10 @@ int match_img(Mat& img_extract, int type_base){
 
 	if(max_matchVal > 0.5)
 		printf("\n--> good match> max_v:%0.2lf | id:%d | description:   %s", max_matchVal, id_picto, db_use[id_picto].description.c_str() );
-	else
+	else{
+		id_picto=-1;
 		printf("\nno match");
+	}
 	cout << "\n" ;
 
 	return id_picto;

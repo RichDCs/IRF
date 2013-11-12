@@ -20,9 +20,13 @@ using namespace std;
 #include "manage_img.h"
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
+#define NB_REPOSITORY 1 // 35
+#define NB_FILE 22 // 22
 
-int reduction_factor ;
+int reduction_factor = 2;
 extern can_pt caneva_pts ;
+extern struct database_picto db_picto[];
+extern struct database_picto db_text[];
 
 int main(void){
 
@@ -31,7 +35,6 @@ int main(void){
 	Mat image_reference = imread( "img/template.png", 1 );
 	
 	#if DEBUG_LEVEL > 0
-	reduction_factor = 4;
 	Size size_image_reference( image_reference.cols/reduction_factor, image_reference.rows/reduction_factor );
 	resize( image_reference, image_reference, size_image_reference );
 	#endif
@@ -39,7 +42,7 @@ int main(void){
 /**** boucle générale pour parcourir les dossiers ****/
 	string path_root = "NicIcon/";
 	int k;
-	for(k=0;k<=34;k++){
+	for(k=0;k<NB_REPOSITORY;k++){
 
 /**** Détermination du numéro du scripteur ****/
 		string path_directory = path_root;
@@ -60,7 +63,7 @@ int main(void){
 		path_directory += tmp_directory;
 
 		int l;
-		for(l=0;l<22;l++){
+		for(l=0;l<NB_FILE;l++){
 /**** Détermination du numéro de la page ****/
 			string path_file = path_directory;
 			string numeroPage = "";
@@ -81,7 +84,6 @@ int main(void){
 			cout << path_file << endl;
 /**** Redimensionnement des images pour les tests ****/
 			#if DEBUG_LEVEL > 0
-			reduction_factor = 4;
 			Size size_image_test( image_in.cols/reduction_factor, image_in.rows/reduction_factor);
 			resize(image_in, image_in, size_image_test );
 			#endif
@@ -117,36 +119,51 @@ int main(void){
 			for(int i = 0 ; i < 7 ; i++){
 				/*extraction de l'image de tête*/
 				cout << "Reconnaissance de l'image de tete" << endl;
-				//extractImage(image_in, img_extract, caneva_pts.x[1], caneva_pts.y[2*i+1], caneva_pts.x[2], caneva_pts.y[2*i+2]);
+				extractImage(image_in, img_extract, caneva_pts.x[1], caneva_pts.y[2*i+1], caneva_pts.x[2], caneva_pts.y[2*i+2]);
 				//imshow( "img_ext:" + ('0' + i) , img_extract );
 				/* comparaison du pictogramme avec la base*/
-				//id_picto = match_img(img_extract, MATCH_IMG);
+				id_picto = match_img(img_extract, MATCH_IMG);
 				/* comparaison du texte avec la base */
-				//id_text = match_img(img_extract, MATCH_TXT);
+				id_text = match_img(img_extract, MATCH_TXT);
 				//cout << "-\n-\n" ;
 
+				// détermination de la ligne
+				int ligne_int = i+1;
+				ostringstream ossLigne;
+				ossLigne << ligne_int;
+				string ligne = ossLigne.str();
+
+				string identifiantIcone = "";
+				if(id_picto!=-1)
+					identifiantIcone = db_picto[id_picto].description.c_str();
+				else{
+					cout << "\nProbleme lors du match d'un picto de "+path_file+" a la ligne "+ligne << endl;
+					system("pause");
+				}
+					
+				string taille = "";
+				if(id_text!=-1)
+						taille=db_text[id_text].description.c_str();
+				else if(l>=2 && id_text==-1){
+					cout << "\nProbleme lors du match d'un text de "+path_file+" a la ligne "+ligne << endl;
+					system("pause");
+				}
+
 				/* extraction de la ligne + enregistrement sous le bon nom */
-				for(int j=0; j<5 ; j++){
+				for(int j=1; j<6 ; j++){
 					cout << "Extraction imagette" << endl;
 					extractImage(image_in, img_extract, caneva_pts.x[2*j+1], caneva_pts.y[2*i+1], caneva_pts.x[2*j+2], caneva_pts.y[2*i+2]);
 					//imshow( "img_ext_line:" + ('0' + 10*i) + j, img_extract );   //si vous voulez voir les 5 images extraites de la ligne en cours
 
 /**** Création de l'imagette ****/
-					// détermination de la ligne
-					int ligne_int = i+1;
-					ostringstream ossLigne;
-					ossLigne << ligne_int;
-					string ligne = ossLigne.str();
 
 					// détermination de la colonne
-					int colonne_int = j+1;
+					int colonne_int = j;
 					ostringstream ossColonne;
 					ossColonne << colonne_int;
 					string colonne = ossColonne.str();
 				
 					// chemin d'accès aux deux fichiers de sortie
-					string identifiantIcone = "";
-					string taille = "";
 					string path_out = "data/"+identifiantIcone+"_"+numeroScripteur+"_"+numeroPage+"_"+ligne+"_"+colonne;
 					string path_out_png = path_out+".png";
 					string path_out_txt = path_out+".txt";
