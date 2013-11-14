@@ -208,6 +208,8 @@ int main(void){
 		}
 	}
 
+	cout << "\n\n-- fin du programme --\n\n" ;
+	system("pause");
 	waitKey(0);
 	return 0;
 }
