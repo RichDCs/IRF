@@ -125,4 +125,9 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 
 		return correction_angle ;
 	}
+	else{
+		printf("\nimpossible de calculer l'angle (pas de detection de croix)\n");
+		system("pause");
+		return 0 ;
+	}
 }
