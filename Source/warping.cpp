@@ -90,7 +90,7 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 	Point origine_cross_up;
 	Point origine_cross_down;
 
-	find_crosses( full_image, image_reference, origine_cross_up, origine_cross_down );
+	if(find_crosses( full_image, image_reference, origine_cross_up, origine_cross_down )){
 
 /*
 *		 origine_cross_up
@@ -103,25 +103,26 @@ double compute_warping(cv::Mat& full_image, cv::Mat& image_reference){
 *	origine_cross_down
 */
 
-	double op = origine_cross_down.y - origine_cross_up.y ;
-	double adj = origine_cross_up.x - origine_cross_down.x ;
-	double hyp = sqrt( pow(op,2) + pow(adj,2) );
+		double op = origine_cross_down.y - origine_cross_up.y ;
+		double adj = origine_cross_up.x - origine_cross_down.x ;
+		double hyp = sqrt( pow(op,2) + pow(adj,2) );
 
-	/* Compute the angle */
-	double result_tan, result_cos, result_sin ;
-	result_tan = atan( (double)(op) / (adj) ) ;// tan(angle) = op / adj
-	printf("resultat angle (tan) : %f degres\n", result_tan * 180 / M_PI );
+		/* Compute the angle */
+		double result_tan, result_cos, result_sin ;
+		result_tan = atan( (double)(op) / (adj) ) ;// tan(angle) = op / adj
+		printf("resultat angle (tan) : %f degres\n", result_tan * 180 / M_PI );
 
-	result_cos = acos( (double)(adj) / (hyp) ) ;
-	printf("resultat angle (cos) : %f degres\n", result_cos * 180 / M_PI );
+		result_cos = acos( (double)(adj) / (hyp) ) ;
+		printf("resultat angle (cos) : %f degres\n", result_cos * 180 / M_PI );
 
-	result_sin = asin( (double)(op) / (hyp) ) ;
-	printf("resultat angle (sin) : %f degres\n", result_sin * 180 / M_PI );
+		result_sin = asin( (double)(op) / (hyp) ) ;
+		printf("resultat angle (sin) : %f degres\n", result_sin * 180 / M_PI );
 
-	double mean_angle = (result_tan + result_cos + result_sin)/3 ;
-	printf("\nangle moyen : %f degres\n", mean_angle * 180 / M_PI );
-	double correction_angle = ANGLE_REFERENCE - (mean_angle * 180 / M_PI) ;
-	printf("inclinaison image : %f degres\n",  correction_angle);
+		double mean_angle = (result_tan + result_cos + result_sin)/3 ;
+		printf("\nangle moyen : %f degres\n", mean_angle * 180 / M_PI );
+		double correction_angle = ANGLE_REFERENCE - (mean_angle * 180 / M_PI) ;
+		printf("inclinaison image : %f degres\n",  correction_angle);
 
-	return correction_angle ;
+		return correction_angle ;
+	}
 }
