@@ -17,20 +17,20 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.x[1] = (unsigned int)( cross_down.x-lx*0.03 ); //encadre le symbole propre
 	caneva_pts.x[2] = (unsigned int)( cross_down.x+lx*0.1 );
 
-	caneva_pts.x[3] = (unsigned int)( cross_down.x+lx*0.19 );	//encadre la 1ere colone d'image
-	caneva_pts.x[4] = (unsigned int)( cross_down.x+lx*0.3 );
+	caneva_pts.x[3] = (unsigned int)( cross_down.x+lx*0.183 );	//encadre la 1ere colone d'image
+	caneva_pts.x[4] = (unsigned int)( cross_down.x+lx*0.31 );
 
-	caneva_pts.x[5] = (unsigned int)( cross_down.x+lx*0.37 );	//encadre la 2eme colone d'image
-	caneva_pts.x[6] = (unsigned int)( cross_down.x+lx*0.48 );
+	caneva_pts.x[5] = (unsigned int)( cross_down.x+lx*0.363 );	//encadre la 2eme colone d'image
+	caneva_pts.x[6] = (unsigned int)( cross_down.x+lx*0.49 );
 
-	caneva_pts.x[7] = (unsigned int)( cross_down.x+lx*0.55 );	//encadre la 3eme colone d'image
-	caneva_pts.x[8] = (unsigned int)( cross_down.x+lx*0.66 );
+	caneva_pts.x[7] = (unsigned int)( cross_down.x+lx*0.54 );	//encadre la 3eme colone d'image
+	caneva_pts.x[8] = (unsigned int)( cross_down.x+lx*0.668 );
 
 	caneva_pts.x[9] = (unsigned int)( cross_down.x+lx*0.72 );	//encadre la 4eme colone d'image
-	caneva_pts.x[10] = (unsigned int)( cross_down.x+lx*0.84 )	;
+	caneva_pts.x[10] = (unsigned int)( cross_down.x+lx*0.848 )	;
 
-	caneva_pts.x[11] = (unsigned int)( cross_down.x+lx*0.9 );	//encadre la 5eme colone d'image
-	caneva_pts.x[12] = (unsigned int)( cross_down.x+lx*1.02 );
+	caneva_pts.x[11] = (unsigned int)( cross_down.x+lx*0.90 );	//encadre la 5eme colone d'image
+	caneva_pts.x[12] = (unsigned int)( cross_down.x+lx*1.027 );
 
 	caneva_pts.x[LAST_VERTICAL_COL] =  (unsigned int)( cross_down.x+lx*1.05 );//==la fin de l'image, dernière bordure d'arret
 
@@ -38,26 +38,26 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 
 	caneva_pts.y[FIRST_VERTICAL_LINE] = cross_up.y ;		//colone de bord de l'image (!=0 pour voir un bord)
 
-	caneva_pts.y[1] = (unsigned int)( cross_up.y + ly*0.1 );		//encadre la 1eme ligne d'imagette dessinée main
-	caneva_pts.y[2] = (unsigned int)( cross_up.y + ly*0.18 );
+	caneva_pts.y[1] = (unsigned int)( cross_up.y + ly*0.092 );		//encadre la 1eme ligne d'imagette dessinée main
+	caneva_pts.y[2] = (unsigned int)( cross_up.y + ly*0.182 );
 
-	caneva_pts.y[3] = (unsigned int)( cross_up.y + ly*0.22 );	//encadre la 2eme ligne d'imagette dessinée main
-	caneva_pts.y[4] = (unsigned int)( cross_up.y + ly*0.31 );
+	caneva_pts.y[3] = (unsigned int)( cross_up.y + ly*0.217 );	//encadre la 2eme ligne d'imagette dessinée main
+	caneva_pts.y[4] = (unsigned int)( cross_up.y + ly*0.307 );
 
-	caneva_pts.y[5] = (unsigned int)( cross_up.y + ly*0.35 );	//encadre la 3eme ligne d'imagette dessinée main
-	caneva_pts.y[6] = (unsigned int)( cross_up.y + ly*0.43 );
+	caneva_pts.y[5] = (unsigned int)( cross_up.y + ly*0.343 );	//encadre la 3eme ligne d'imagette dessinée main
+	caneva_pts.y[6] = (unsigned int)( cross_up.y + ly*0.433 );
 
-	caneva_pts.y[7] = (unsigned int)( cross_up.y + ly*0.47 );	//encadre la 4eme ligne d'imagette dessinée main
-	caneva_pts.y[8] = (unsigned int)( cross_up.y + ly*0.56 );
+	caneva_pts.y[7] = (unsigned int)( cross_up.y + ly*0.469 );	//encadre la 4eme ligne d'imagette dessinée main
+	caneva_pts.y[8] = (unsigned int)( cross_up.y + ly*0.559 );
 
-	caneva_pts.y[9] = (unsigned int)( cross_up.y + ly*0.6 );	//encadre la 5eme ligne d'imagette dessinée main
-	caneva_pts.y[10] = (unsigned int)( cross_up.y + ly*0.68 );
+	caneva_pts.y[9] = (unsigned int)( cross_up.y + ly*0.594 );	//encadre la 5eme ligne d'imagette dessinée main
+	caneva_pts.y[10] = (unsigned int)( cross_up.y + ly*0.684 );
 
 	caneva_pts.y[11] = (unsigned int)( cross_up.y + ly*0.72 );	//encadre la 6eme ligne d'imagette dessinée main
 	caneva_pts.y[12] = (unsigned int)( cross_up.y + ly*0.81 );
 
-	caneva_pts.y[13] = (unsigned int)( cross_up.y + ly*0.85 );	//encadre la 7eme ligne d'imagette dessinée main
-	caneva_pts.y[14] = (unsigned int)( cross_up.y + ly*0.93 );
+	caneva_pts.y[13] = (unsigned int)( cross_up.y + ly*0.846 );	//encadre la 7eme ligne d'imagette dessinée main
+	caneva_pts.y[14] = (unsigned int)( cross_up.y + ly*0.935 );
 
 	caneva_pts.y[LAST_VERTICAL_LINE] = cross_down.y ;
 }

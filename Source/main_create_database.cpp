@@ -21,7 +21,7 @@ using namespace std;
 #include <Windows.h>
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
-#define NB_REPOSITORY 1 // 35
+#define NB_REPOSITORY 35 // 35
 #define NB_FILE 22 // 22
 
 int reduction_factor = 2;
