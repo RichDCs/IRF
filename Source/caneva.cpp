@@ -23,7 +23,7 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.x[5] = (unsigned int)( cross_down.x+lx*0.363 );	//encadre la 2eme colone d'image
 	caneva_pts.x[6] = (unsigned int)( cross_down.x+lx*0.49 );
 
-	caneva_pts.x[7] = (unsigned int)( cross_down.x+lx*0.54 );	//encadre la 3eme colone d'image
+	caneva_pts.x[7] = (unsigned int)( cross_down.x+lx*0.541 );	//encadre la 3eme colone d'image
 	caneva_pts.x[8] = (unsigned int)( cross_down.x+lx*0.668 );
 
 	caneva_pts.x[9] = (unsigned int)( cross_down.x+lx*0.72 );	//encadre la 4eme colone d'image
@@ -47,16 +47,16 @@ void create_caneva(cv::Mat& full_image, cv::Point& cross_up, cv::Point& cross_do
 	caneva_pts.y[5] = (unsigned int)( cross_up.y + ly*0.343 );	//encadre la 3eme ligne d'imagette dessinée main
 	caneva_pts.y[6] = (unsigned int)( cross_up.y + ly*0.433 );
 
-	caneva_pts.y[7] = (unsigned int)( cross_up.y + ly*0.469 );	//encadre la 4eme ligne d'imagette dessinée main
+	caneva_pts.y[7] = (unsigned int)( cross_up.y + ly*0.470 );	//encadre la 4eme ligne d'imagette dessinée main
 	caneva_pts.y[8] = (unsigned int)( cross_up.y + ly*0.559 );
 
-	caneva_pts.y[9] = (unsigned int)( cross_up.y + ly*0.594 );	//encadre la 5eme ligne d'imagette dessinée main
+	caneva_pts.y[9] = (unsigned int)( cross_up.y + ly*0.595 );	//encadre la 5eme ligne d'imagette dessinée main
 	caneva_pts.y[10] = (unsigned int)( cross_up.y + ly*0.684 );
 
-	caneva_pts.y[11] = (unsigned int)( cross_up.y + ly*0.72 );	//encadre la 6eme ligne d'imagette dessinée main
+	caneva_pts.y[11] = (unsigned int)( cross_up.y + ly*0.721 );	//encadre la 6eme ligne d'imagette dessinée main
 	caneva_pts.y[12] = (unsigned int)( cross_up.y + ly*0.81 );
 
-	caneva_pts.y[13] = (unsigned int)( cross_up.y + ly*0.846 );	//encadre la 7eme ligne d'imagette dessinée main
+	caneva_pts.y[13] = (unsigned int)( cross_up.y + ly*0.847 );	//encadre la 7eme ligne d'imagette dessinée main
 	caneva_pts.y[14] = (unsigned int)( cross_up.y + ly*0.935 );
 
 	caneva_pts.y[LAST_VERTICAL_LINE] = cross_down.y ;
