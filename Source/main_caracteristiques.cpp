@@ -16,7 +16,9 @@ using namespace std;
 int main(void){
 
 	cout << "main\n";
+	// On instantie le classifieur
 
+	// puis apprentissage
 
 	system("pause");
 	waitKey(0);
