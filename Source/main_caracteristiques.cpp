@@ -22,7 +22,7 @@ using namespace std;
 int main(void){  
 	// Recupere la liste des chemins d'acces a tous les fichiers de la base d'exemple
 	BaseExemples base_exemple = BaseExemples();
-	//cout << base_exemple;
+	cout << base_exemple;
 	system("mkdir resultat");
 	// Moyenne des moments m00
 	Moment moment = Moment("moment","moy");

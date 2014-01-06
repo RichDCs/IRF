@@ -2,13 +2,13 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <dirent.h>
+#include "dirent.h"
 #include <sstream>
 using namespace std;
 
 BaseExemples::BaseExemples() {
 	base_exemples_path = base_exemples_repertoires();
-} 
+}
 
 vector<string> BaseExemples::base_exemples_files(char* chemin){
 	vector<string> files;
