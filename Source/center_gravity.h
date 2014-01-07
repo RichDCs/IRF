@@ -1,3 +1,6 @@
+#ifndef CENTERGRAVITY_H
+#define CENTERGRAVITY_H
+
 #include <cv.h>
 #include <highgui.h>
 using namespace cv;
@@ -6,8 +9,7 @@ using namespace cv;
 using namespace std;
 #include <Windows.h>
 
-class CenterGravity
-{
+class CenterGravity {
 private:
 	int threshold;
 public:
@@ -17,4 +19,6 @@ public:
 	Mat read_image_grayscale(string image_path);
 	void calculate_CenterGravity(string path);
 };
+
+#endif
 
