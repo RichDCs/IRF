@@ -1,12 +1,22 @@
 # -*- coding: utf-8 -*-
 import re
 import array
+import os
 
-def toWeka(file_path, result_filename):
-	
+def weka_process_folder(folder_path):
+	for dirname, dirnames, filenames in os.walk(folder_path):
+	    for filename in filenames:
+	    	if os.path.splitext(filename)[1] == '.txt':
+		        filepath = os.path.join(dirname, filename)
+		        print('-------------------------------------')
+		        print('Processing ' + filepath)
+		        output_filename = os.path.splitext(filename)[0] + '.arff'
+		        toWeka(filepath, output_filename)
+
+def toWeka(filepath, result_filename):
 	# open file
 	print('opening file')
-	f = open(file_path, 'r')
+	f = open(filepath, 'r')
 
 	try:
 		caract = f.readline().rstrip()
@@ -37,11 +47,15 @@ def toWeka(file_path, result_filename):
 				# write results
 				print('writing data for ' + picto_class)
 				for value in values:
-					res.write(value + ',' + picto_class + '\n')
-				res.write('\n')
+					try:
+						value = float(value)
+						res.write(str(value) + ',' + picto_class + '\n')
+					except ValueError:
+						print('"-1.#IND" detected. Skipping...')
 
 				# read next line
 				line = f.readline().rstrip()
+				res.write('\n')
 
 			print('writing complete')
 		
@@ -58,10 +72,9 @@ def toWeka(file_path, result_filename):
 	print('reading done')
 
 def main():
-	print('---------------main----------------')
+	print('----------------main-----------------')
+
 	print('--------------example----------------')
-	fichierTest = 'C:/Users/Bamako/Documents/Visual Studio 2012/Projects/caract/caract/resultat/contourArea.txt'
-	fichierRes = 'contourArea.arff'
-	toWeka(fichierTest, fichierRes)
+	weka_process_folder("C:/Users/Bamako/Documents/Visual Studio 2012/Projects/caract/caract/resultat/")
 
 main()
