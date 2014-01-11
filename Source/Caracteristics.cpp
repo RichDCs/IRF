@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 #include "Caracteristics.h"
+#include "cv.h"
+using namespace cv;
 using namespace std;
 
 

@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "cv.h"
+using namespace cv;
 using namespace std;
 
 class Caracteristics
