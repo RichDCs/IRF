@@ -19,7 +19,8 @@ protected:
 	string name;
 	// Cette map associe à chaque picto, la valeur de la caractéristique correspondante
 	map<string,vector<double>> caractValues;	
-
+	// Cette map associe à chaque zone d'un picto, la valeur de la caractéristique correspondante
+	map<int,map<string,vector<double>>> zonesValues;
 public:
 	// Constructeur
 	Caracteristics();
@@ -33,8 +34,14 @@ public:
 	void setName(string nameCaracteristics);
 	// Setter de la map
 	void setCaractValues(map<string,vector<string>> pathFiles);
+	// Setter de la map zonesValues
+	void setZonesValues(map<string,vector<string>> pathFiles);
 	// Ecrit le résultat de la caractéristique dans un fichier
 	void writeInAFile(string header, string pathFile);
+	// Affichage de la map de la caractéristique
+	string showCaractValues(map<string,vector<double>> caract);
+	// Ecrit le résultat de la caractéristique dans sept fichiers différents correspondants aux sept zones possibles
+	void writeIn7File(string header,string pathFile);
 };
 
 #endif

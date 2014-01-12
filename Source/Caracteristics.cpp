@@ -49,13 +49,58 @@ void Caracteristics::setName(string nameCaracteristics){
 }
 
 void Caracteristics::setCaractValues(map<string,vector<string>> pathFiles){
-	cout << "caracteristics" << endl;
+	cout << "caracteristics caractValues" << endl;
+}
+
+void Caracteristics::setZonesValues(map<string,vector<string>> pathFiles){
+	cout << "caracteristics zonesValues" << endl;
 }
 
 void Caracteristics::writeInAFile(string header,string pathFile){
 	ofstream myfile;
 	myfile.open (pathFile);
 	myfile << header << endl;
-	myfile << (*this);
+	myfile << (this->showCaractValues(this->caractValues));
 	myfile.close();
+}
+
+string Caracteristics::showCaractValues(map<string,vector<double>> caract){
+	string result;
+	for(map<string,vector<double>>::iterator it=caract.begin(); it!=caract.end(); ++it){
+		result+= it->first+" = [ ";
+		vector<double> values = it->second;
+		for(int i=0;i<values.size();i++){
+			
+			// Conversion de la valeur en string
+			ostringstream oss;
+			oss	<< values[i];
+			string value = oss.str();
+
+			result += value;
+			result+=" ";
+			if(i!=values.size()-1)
+				result+="; ";
+		}
+		result+="]\n";
+	}
+	return result;
+}
+
+void Caracteristics::writeIn7File(string header,string pathFile){
+	for(int i=1;i<=7;i++){
+		map<string,vector<double>> caract = zonesValues[i];
+		ofstream myfile;
+		
+		// Conversion de la valeur en string
+		ostringstream oss;
+		oss	<< i;
+		string zone = oss.str();
+
+		string newPathFile = pathFile+"zone"+zone+".txt";
+
+		myfile.open (newPathFile);
+		myfile << header << endl;
+		myfile << (this->showCaractValues(caract));
+		myfile.close();
+	}
 }

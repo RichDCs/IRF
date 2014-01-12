@@ -20,6 +20,7 @@ using namespace std;
 #include "Moment.h"
 #include "percent_of_white.h"
 #include "cut_down.h"
+#include "splitImage.h"
 
 int main(void){  
 	// Recupere la liste des chemins d'acces a tous les fichiers de la base d'exemple
@@ -29,7 +30,11 @@ int main(void){
 	
 	PercentOfWhite percent = PercentOfWhite("percent of white");
 	percent.setCaractValues(base_exemple.getBaseExemplesPath());
-	percent.writeInAFile("percent","resultat/percent.txt");
+	percent.writeInAFile("percent","resultat/percent_of_white.txt");
+	percent.setZonesValues(base_exemple.getBaseExemplesPath());
+	// le chemin d'accès au fichier sera complété dans la fonction donc ne pas mettre ".txt"
+	percent.writeIn7File("percent","resultat/percent_of_white_");
+
 	// Moyenne des moments m00
 	//Moment moment = Moment("moment","moy");
 	//moment.setCaractValues(base_exemple.getBaseExemplesPath());

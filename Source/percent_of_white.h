@@ -16,9 +16,10 @@ public:
 	// Constructeur
 	PercentOfWhite(string nameCaract);
 	virtual void setCaractValues(map<string,vector<string>> pathFiles);
+	virtual void setZonesValues(map<string,vector<string>> pathFiles);
 private:
 	// Normalise l'image en la rognant
-	double normalize_img(Mat src);
+	Mat normalize_img(Mat src);
 	// Calcul le pourcentage de blanc
 	double calcul_percent_of_white(Mat src);
 };
