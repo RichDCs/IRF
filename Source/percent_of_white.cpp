@@ -80,7 +80,7 @@ double PercentOfWhite::calcul_percent_of_white(Mat src){
 			blue = intensity.val[0];
 			green = intensity.val[1];
 			red = intensity.val[2];
-			if(red>=240 && green>=240 && blue>=240){
+			if(red>=200 && green>=200 && blue>=200){
 				compteur++;
 			}
 		}

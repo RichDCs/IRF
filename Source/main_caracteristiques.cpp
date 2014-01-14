@@ -16,11 +16,9 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include "Base_exemples.h"
-#include "Caracteristics.h"
 #include "Moment.h"
 #include "percent_of_white.h"
-#include "cut_down.h"
-#include "splitImage.h"
+#include "center.h"
 
 int main(void){  
 	// Recupere la liste des chemins d'acces a tous les fichiers de la base d'exemple
@@ -28,12 +26,18 @@ int main(void){
 	//cout << base_exemple;
 	system("mkdir resultat");
 	
+	Center center = Center("center gravity");
+	center.setCaractValues(base_exemple.getBaseExemplesPath());
+	center.writeInAFile("center","resultat/center");
+	center.setZonesValues(base_exemple.getBaseExemplesPath());
+	center.writeIn7File("center","resultat/center");
+
 	PercentOfWhite percent = PercentOfWhite("percent of white");
 	percent.setCaractValues(base_exemple.getBaseExemplesPath());
 	percent.writeInAFile("percent","resultat/percent_of_white.txt");
 	percent.setZonesValues(base_exemple.getBaseExemplesPath());
 	// le chemin d'accès au fichier sera complété dans la fonction donc ne pas mettre ".txt"
-	percent.writeIn7File("percent","resultat/percent_of_white_");
+	percent.writeIn7File("percent","resultat/percent_of_white");
 
 	// Moyenne des moments m00
 	//Moment moment = Moment("moment","moy");
@@ -45,13 +49,13 @@ int main(void){
 	//moment.setCaractValues(base_exemple.getBaseExemplesPath());
 	//moment.writeInAFile("m00","resultat/m00.txt");
 	// Moment mcX
-	Moment moment = Moment("moment","mcX");
+	/*Moment moment = Moment("moment","mcX");
 	moment.setCaractValues(base_exemple.getBaseExemplesPath());
-	moment.writeInAFile("mcX","resultat/mcX.txt");
+	moment.writeInAFile("mcX","resultat/mcX.txt");*/
 	// Moment mcY
-	moment = Moment("moment","mcY");
+	/*moment = Moment("moment","mcY");
 	moment.setCaractValues(base_exemple.getBaseExemplesPath());
-	moment.writeInAFile("mcX","resultat/mcY.txt");
+	moment.writeInAFile("mcX","resultat/mcY.txt");*/
 	// Nombre de contours
 	//moment = Moment("moment","nbContours");
 	//moment.setCaractValues(base_exemple.getBaseExemplesPath());
