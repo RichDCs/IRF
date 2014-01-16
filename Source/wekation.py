@@ -48,11 +48,7 @@ def toWeka(filepath):
 			extracted_values = re.findall('\[\s(.+?)\s\]', line)
 			extracted_values = extracted_values[0].replace(" ", "").split(';')
 
-			# save extracted_values
-			# if(picto_class not in classes):
-			# 	classes.append(picto_class)
-
-			for x in range(0, len(extracted_values) - 1):
+			for x in range(0, len(extracted_values)):
 
 				if (len(dict_values[picto_class]) <= x):
 					print('no pictos')
