@@ -10,7 +10,7 @@ using namespace std;
 
 
 // Surcharge de l'opérateur <<
-ostream& operator<<(ostream &out, const Caracteristics &c){
+/*ostream& operator<<(ostream &out, const Caracteristics &c){
 	//out << c.name << endl;
 	map<string,vector<double>> caractValues = c.caractValues;
 	for(map<string,vector<double>>::iterator it=caractValues.begin(); it!=caractValues.end(); ++it){
@@ -24,7 +24,7 @@ ostream& operator<<(ostream &out, const Caracteristics &c){
 		out << "]" << endl;
 	}
 	return out;
-}
+}*/
 
 Caracteristics::Caracteristics(){}
 
@@ -41,6 +41,10 @@ vector<double> Caracteristics::getCaractValuesPicto(string pictoName){
 // Getter du nom de la caractéristique
 string Caracteristics::getName(){
 	return name;
+}
+
+map<int,map<string,vector<double>>> Caracteristics::getZonesCaractValues(){
+	return zonesValues;
 }
 
 // Setter du nom de la caractéristique
@@ -96,11 +100,25 @@ void Caracteristics::writeIn7File(string header,string pathFile){
 		oss	<< i;
 		string zone = oss.str();
 
-		string newPathFile = pathFile+"zone"+zone+".txt";
+		string newPathFile = pathFile+"_zone"+zone+".txt";
 
 		myfile.open (newPathFile);
 		myfile << header << endl;
 		myfile << (this->showCaractValues(caract));
 		myfile.close();
 	}
+}
+
+void Caracteristics::insertCaractValues(string pictoName,vector<double> vec){
+	map<string,vector<double>>::iterator it = caractValues.begin(); 
+	caractValues.insert(it,pair<string,vector<double>>(pictoName,vec));
+}
+
+void Caracteristics::insertZonesCaractValues(int zone, map<string,vector<double>> caract){
+	map<int,map<string,vector<double>>>::iterator it = zonesValues.begin();
+	zonesValues.insert(it,pair<int,map<string,vector<double>>>(zone,caract));
+}
+
+void Caracteristics::clearCaractValues(){
+	caractValues.clear();
 }

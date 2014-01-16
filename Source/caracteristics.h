@@ -12,13 +12,14 @@ using namespace std;
 class Caracteristics
 {
 	// Surcharge de l'opérateur <<
-	friend ostream& operator<<(ostream &out, const Caracteristics &c);
+	//friend ostream& operator<<(ostream &out, const Caracteristics &c);
 
 protected:
 	// Nom de la caractéristique
 	string name;
 	// Cette map associe à chaque picto, la valeur de la caractéristique correspondante
 	map<string,vector<double>> caractValues;	
+	//CaractValues caractValues;
 	// Cette map associe à chaque zone d'un picto, la valeur de la caractéristique correspondante
 	map<int,map<string,vector<double>>> zonesValues;
 public:
@@ -28,6 +29,10 @@ public:
 	map<string,vector<double>> getCaractValues();
 	// Getter des valeurs de la caractéristique pour un pictogramme donné
 	vector<double> getCaractValuesPicto(string pictoName);
+	map<int,map<string,vector<double>>> getZonesCaractValues();
+	void insertCaractValues(string pictoName,vector<double> vec);
+	void insertZonesCaractValues(int zone, map<string,vector<double>> caract);
+	void clearCaractValues();
 	// Getter du nom de la caractéristique
 	string getName();
 	// Setter du nom de la caractéristique
