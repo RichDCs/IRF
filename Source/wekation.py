@@ -109,7 +109,8 @@ def write_arff(result_filename):
 						value = float(value)
 						res.write(str(value) + ',')
 					except ValueError:
-						print('"-1.#IND" detected. Skipping...')
+						print('"-1.#IND" detected. Writing 0.0')
+						res.write("0.0" + ',')
 
 				res.write(p.classe + '\n')
 	
@@ -126,6 +127,6 @@ def main():
 
 	print('--------------example----------------')
 	initiate_classes()
-	weka_process_folder("C:/Users/Bamako/Desktop/IRF Tests/valeurs")
+	weka_process_folder("C:/Users/Bamako/Documents/5INFO/IRF/valeurs")
 
 main()
