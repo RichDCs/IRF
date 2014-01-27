@@ -19,11 +19,14 @@ using namespace std;
 #include "caneva.h"
 #include "manage_img.h"
 #include <Windows.h>
+#include "percent_of_white.h"
+#include "cut_down.h"
 
 #define DEBUG_LEVEL  3		// 0:no dbg - 1:dbg mini - 2:dbg normal - 3:dbg max
 #define NB_REPOSITORY 35 // 35
 #define NB_FILE 22 // 22
 
+int reject = 0;
 int reduction_factor = 2;
 extern can_pt caneva_pts ;
 extern struct database_picto db_picto[];
@@ -157,58 +160,68 @@ int main(void){
 						extractImage(image_in, img_extract, caneva_pts.x[2*j+1], caneva_pts.y[2*i+1], caneva_pts.x[2*j+2], caneva_pts.y[2*i+2]);
 						//imshow( "img_ext_line:" + ('0' + 10*i) + j, img_extract );   //si vous voulez voir les 5 images extraites de la ligne en cours
 
-	/**** Création de l'imagette ****/
+	/**** Création de l'imagette si non vide ****/
+						if(check_percent_of_white(img_extract)){
+							reject++;
+							cout << "\nprobleme avec l'image, elle est vide" << endl;
+							system("pause");
+						}else{
+							// Rogne l'image
+							img_extract = cut_down(img_extract);
 
-						// détermination de la colonne
-						int colonne_int = j;
-						ostringstream ossColonne;
-						ossColonne << colonne_int;
-						string colonne = ossColonne.str();
+							// détermination de la colonne
+							int colonne_int = j;
+							ostringstream ossColonne;
+							ossColonne << colonne_int;
+							string colonne = ossColonne.str();
 				
-						// chemin d'accès aux deux fichiers de sortie
-						string path_out = "data/"+identifiantIcone+"_"+numeroScripteur+"_"+numeroPage+"_"+ligne+"_"+colonne;
-						string path_out_png = path_out+".png";
-						string path_out_txt = path_out+".txt";
+							// chemin d'accès aux deux fichiers de sortie
+							string path_out = "data/"+identifiantIcone+"_"+numeroScripteur+"_"+numeroPage+"_"+ligne+"_"+colonne;
+							string path_out_png = path_out+".png";
+							string path_out_txt = path_out+".txt";
 
-						// création du fichier png
-						cout << "Extraction dans un fichier png" << endl;
-						imwrite(path_out_png,img_extract);
+							// création du fichier png
+							cout << "Extraction dans un fichier png" << endl;
+							imwrite(path_out_png,img_extract);
 
-						// création du fichier txt
-						cout << "Extraction dans un fichier de description" << endl;
-						ofstream extract_image_file;
-						extract_image_file.open(path_out_txt,ios::out);
-						if(extract_image_file.bad())
-							return 1;
-						extract_image_file << "# Module IRF, 5INFO 5EII" << endl;
-						extract_image_file << "# Yannick GAUDIN, Martin SEILLAN, Alexandra CHARRIER, Richard LAGRANGE" << endl;
-						extract_image_file << "etiquette "+identifiantIcone << endl;
-						extract_image_file << "formulaire "+numeroFormulaire << endl;
-						extract_image_file << "scripteur "+numeroScripteur << endl;
-						extract_image_file << "page "+numeroPage << endl;
-						extract_image_file << "ligne "+ligne << endl;
-						extract_image_file << "colonne "+colonne << endl;
-						extract_image_file << "taille "+taille << endl;
-						extract_image_file.close();
+							// création du fichier txt
+							cout << "Extraction dans un fichier de description" << endl;
+							ofstream extract_image_file;
+							extract_image_file.open(path_out_txt,ios::out);
+							if(extract_image_file.bad())
+								return 1;
+							extract_image_file << "# Module IRF, 5INFO 5EII" << endl;
+							extract_image_file << "# Yannick GAUDIN, Martin SEILLAN, Alexandra CHARRIER, Richard LAGRANGE" << endl;
+							extract_image_file << "etiquette "+identifiantIcone << endl;
+							extract_image_file << "formulaire "+numeroFormulaire << endl;
+							extract_image_file << "scripteur "+numeroScripteur << endl;
+							extract_image_file << "page "+numeroPage << endl;
+							extract_image_file << "ligne "+ligne << endl;
+							extract_image_file << "colonne "+colonne << endl;
+							extract_image_file << "taille "+taille << endl;
+							extract_image_file.close();
 				
-						cout << endl;
-						cout << endl;
-						//TODO : void saveImage(img_extract, "un joli petit nom bien formaté ici en fonction du type");
-						/* utiliser :
-							db_picto[id_picto].description.c_str()
-								ET
-							db_text[id_text].description.c_str()
-								pour obtenir les textes correspondants au résultat
-						*/
+							cout << endl;
+							cout << endl;
+							//TODO : void saveImage(img_extract, "un joli petit nom bien formaté ici en fonction du type");
+							/* utiliser :
+								db_picto[id_picto].description.c_str()
+									ET
+								db_text[id_text].description.c_str()
+									pour obtenir les textes correspondants au résultat
+							*/
+						}
 					}
 				}
 			}else{
+				reject+=35;
 				cout << "\nprobleme avec les croix\nPassage au prochain fichier requis\n" << endl;
 				system("pause");
 			}
 		}
 	}
-
+	
+	cout << "\nNombre d'imagettes rejetées : " << reject << endl;
 	cout << "\n\n-- fin du programme --\n\n" ;
 	system("pause");
 	waitKey(0);
