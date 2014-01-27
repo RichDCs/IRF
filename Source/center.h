@@ -21,7 +21,7 @@ private:
 	// Normalise l'image en la rognant
 	Mat normalize_img(Mat src);
 	// Calcul du centre de gravité de l'image
-	Point calcul_center(Mat src);
+	Point2d calcul_center(Mat src);
 };
 
 #endif

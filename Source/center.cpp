@@ -3,7 +3,6 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "cv.h"
 using namespace cv;
-#include "cut_down.h"
 #include "splitImage.h"
 	
 Center::Center(string nameCaract){
@@ -21,8 +20,8 @@ void Center::setCaractValues(map<string,vector<string>> pathFiles){
 		for(int i=0;i<pathsForAPicto.size();i++){	
 			/// Load source image
 			Mat src = imread(pathsForAPicto[i], 1 );
-			src = normalize_img(src);
-			Point point = calcul_center(src);
+			//src = normalize_img(src);
+			Point2d point = calcul_center(src);
 			tempX.push_back(point.x);
 			tempY.push_back(point.y);
 		}
@@ -47,10 +46,10 @@ void Center::setZonesValues(map<string,vector<string>> pathFiles){
 			for(int i=0;i<pathsForAPicto.size();i++){	
 				/// Load source image
 				Mat src = imread(pathsForAPicto[i], 1 );
-				src = cut_down(src);
+				//src = cut_down(src);
 				// On splitte l'image en plusieurs images
 				Mat image_zone = splitImageIn7(src,zone);
-				Point point = calcul_center(image_zone);
+				Point2d point = calcul_center(image_zone);
 				tempX.push_back(point.x);
 				tempY.push_back(point.y);
 			}
@@ -65,10 +64,11 @@ void Center::setZonesValues(map<string,vector<string>> pathFiles){
 }
 
 Mat Center::normalize_img(Mat src){
-	return cut_down(src);
+	return src;
+	//return cut_down(src);
 }
 
-Point Center::calcul_center(Mat src){
+Point2d Center::calcul_center(Mat src){
 	Vec3b intensity;
 	int sumX = 0;
 	int sumY = 0;
@@ -94,8 +94,8 @@ Point Center::calcul_center(Mat src){
 	double centre_gravity_x = 0;
 	double centre_gravity_y = 0;
 	if (nbPixel != 0) {
-		centre_gravity_x = (sumX*100)/(nbPixel*src.cols);
-		centre_gravity_y = (sumY*100)/(nbPixel*src.rows);
+		centre_gravity_x = (sumX*100.0)/(nbPixel*src.cols);
+		centre_gravity_y = (sumY*100.0)/(nbPixel*src.rows);
 	}
-	return Point(centre_gravity_x,centre_gravity_y);
+	return Point2d(centre_gravity_x,centre_gravity_y);
 }

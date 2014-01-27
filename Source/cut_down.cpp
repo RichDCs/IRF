@@ -7,7 +7,7 @@
 #include "cv.h"
 using namespace cv;
 
-// POur vérifier que ça rogne correctement les images
+// Pour vérifier que ça rogne correctement les images
 void cut_down_all(map<string,vector<string>> pathFiles){
 	// Iterateur pour remplir la map des caracteristique
 	for(map<string,vector<string>>::iterator it=pathFiles.begin(); it!=pathFiles.end(); ++it){

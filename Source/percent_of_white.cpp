@@ -1,5 +1,4 @@
 #include "percent_of_white.h"	
-#include "cut_down.h"
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
@@ -27,7 +26,7 @@ void PercentOfWhite::setCaractValues(map<string,vector<string>> pathFiles){
 		for(int i=0;i<pathsForAPicto.size();i++){	
 			/// Load source image
 			Mat src = imread(pathsForAPicto[i], 1 );
-			src = normalize_img(src);
+			//src = normalize_img(src);
 			temp.push_back(calcul_percent_of_white(src));
 		}
 		caractValues.insert(itValues,pair<string,vector<double>>(pictoName,temp));
@@ -51,7 +50,7 @@ void PercentOfWhite::setZonesValues(map<string,vector<string>> pathFiles){
 			for(int i=0;i<pathsForAPicto.size();i++){	
 				/// Load source image
 				Mat src = imread(pathsForAPicto[i], 1 );
-				src = cut_down(src);
+				//src = cut_down(src);
 				// On splitte l'image en plusieurs images
 				Mat image_zone = splitImageIn7(src,zone);
 				temp.push_back(calcul_percent_of_white(image_zone));
@@ -66,7 +65,8 @@ void PercentOfWhite::setZonesValues(map<string,vector<string>> pathFiles){
 // Normalise l'image en la rognant
 Mat PercentOfWhite::normalize_img(Mat src){
 	// On normalise d'abord l'image
-	return cut_down(src);
+	return src;
+	//return cut_down(src);
 }
 
 // Calcul le pourcentage de blanc
@@ -86,6 +86,6 @@ double PercentOfWhite::calcul_percent_of_white(Mat src){
 		}
 	}
 	int numberOfPixel = src.cols*src.rows;
-	double result = (compteur*100/numberOfPixel);
+	double result = 100.0*compteur/numberOfPixel;
 	return result;
 }

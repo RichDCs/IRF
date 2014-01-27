@@ -11,6 +11,7 @@ using namespace cv;
 
 using namespace cv;
 
+void cut_down_all(map<string,vector<string>> pathFiles);
 Mat cut_down(Mat src);
 
 // c'est pour débugger et vérifier que ça rogne correctement les images
