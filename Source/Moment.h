@@ -18,7 +18,7 @@ public:
 	virtual void setCaractValues(map<string,vector<string>> pathFiles);
 private:
 	// Fonctions relatives au moment
-	void prepare_img_moment(string pathFile);
+	void prepare_img_moment(/*string pathFile*/);
 	friend void thresh_callback(int,void*);
 };
 

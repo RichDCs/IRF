@@ -9,23 +9,6 @@ using namespace cv;
 using namespace std;
 
 
-// Surcharge de l'opérateur <<
-/*ostream& operator<<(ostream &out, const Caracteristics &c){
-	//out << c.name << endl;
-	map<string,vector<double>> caractValues = c.caractValues;
-	for(map<string,vector<double>>::iterator it=caractValues.begin(); it!=caractValues.end(); ++it){
-		out << it->first << " = [ ";
-		vector<double> values = it->second;
-		for(int i=0;i<values.size();i++){
-			out << values[i] << " ";
-			if(i!=values.size()-1)
-				out << "; ";
-		}
-		out << "]" << endl;
-	}
-	return out;
-}*/
-
 Caracteristics::Caracteristics(){}
 
 // Getter de la map

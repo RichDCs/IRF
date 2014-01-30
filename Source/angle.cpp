@@ -17,7 +17,7 @@ Angle::Angle(string nameCaract){
 }
 
 void Angle::setCaractValues(map<string,vector<string>> pathFiles){
-	cout << "diagonale" << endl;
+	cout << "angle" << endl;
 	// Iterateur pour remplir la map des caracteristiques
 	map<string,vector<double>>::iterator itValues = caractValues.begin();
 	for(map<string,vector<string>>::iterator it=pathFiles.begin(); it!=pathFiles.end(); ++it){
