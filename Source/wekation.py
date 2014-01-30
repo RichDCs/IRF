@@ -26,7 +26,7 @@ def weka_process_folder(folder_path):
 				output_filename = os.path.splitext(filename)[0] + '.arff'
 				analysed_caracteristics.append(os.path.splitext(filename)[0])
 				toWeka(filepath)
-		write_arff("test.arff")
+		write_arff("all.arff")
 
 def toWeka(filepath):
 	print('--------------toWeka----------------')
@@ -42,6 +42,12 @@ def toWeka(filepath):
 
 		while c != '':
 
+			# if c == ' ' or number_classes_analysed > 13 :
+			print(number_classes_analysed)
+			print(picto_class)
+			if number_classes_analysed > 13 :
+				return;
+
 			# get picto class
 			while (c != ' ' and c != '= '):
 				picto_class = picto_class + c
@@ -49,16 +55,10 @@ def toWeka(filepath):
 
 			# read remaining '= [ '
 			print('skipping "= [ "')
-			print('CHAR', c)
 			while c != '[':
 				c = f.read(1)
 			c = f.read(1)
-			print('CHAR', c)
-
-			if c == ' ' and number_classes_analysed >= 13 :
-				print(number_classes_analysed)
-				print('END SPACE. FINISHED !!!')
-				return;
+			print(picto_class)
 
 			fin = True
 			extracted_values = []
@@ -68,14 +68,17 @@ def toWeka(filepath):
 				# read value
 				value = ''
 				rank = 0
-				
+
 				c = f.read(1)
 				while c != ' ':
 					value = value + c
 					c = f.read(1)
 
+
 				# read remaining '; '
 				c = f.read(1)
+				if c == ']' and picto_class == 'zzz':
+					break;
 				c = f.read(1)
 				if value == '-1.#IND':
 					extracted_values.insert(rank, float(0.0))
@@ -87,20 +90,21 @@ def toWeka(filepath):
 				rank = rank + 1
 
 			print('INCREMENT', number_classes_analysed)
+			print(number_classes_analysed)
 			number_classes_analysed = number_classes_analysed + 1
-
+			print(number_classes_analysed)
 			for x in range(0, len(extracted_values)):
 
-				if (len(dict_values[picto_class]) <= x):
+				if (len(dict_values[classes[number_classes_analysed - 1]]) <= x):
 					print('no pictos')
 					print('adding the analysed image')
-					p = Pictogramme(picto_class, x)
+					p = Pictogramme(classes[number_classes_analysed - 1], x)
 					p.values.append(extracted_values[x])
-					dict_values[picto_class].append(p)
+					dict_values[classes[number_classes_analysed - 1]].append(p)
 
 				elif (x < len(extracted_values)):
 					print('get picto & add value')
-					dict_values[picto_class][x].values.append(extracted_values[x])
+					dict_values[classes[number_classes_analysed - 1]][x].values.append(extracted_values[x])
 					print('added value ', extracted_values[x])
 
 				else :
@@ -166,6 +170,6 @@ def main():
 
 	print('--------------example----------------')
 	initiate_classes()
-	weka_process_folder("C:/Users/Bamako/Documents/5INFO/IRF/test/")
+	weka_process_folder("C:/Users/Bamako/Documents/5INFO/IRF/all/all")
 
 main()
