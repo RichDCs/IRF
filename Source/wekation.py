@@ -26,7 +26,7 @@ def weka_process_folder(folder_path):
 				output_filename = os.path.splitext(filename)[0] + '.arff'
 				analysed_caracteristics.append(os.path.splitext(filename)[0])
 				toWeka(filepath)
-		write_arff("output.arff")
+		write_arff("test.arff")
 
 def toWeka(filepath):
 	print('--------------toWeka----------------')
@@ -35,18 +35,59 @@ def toWeka(filepath):
 	f = open(filepath, 'r')
 
 	try:
-		caract = f.readline().rstrip()
-		line = f.readline().rstrip()
+		picto_class = ''
+		c = f.read(1)
+		skip = False
+		number_classes_analysed = 0
 
-		while line != '':
-			# process line for results
-			# find attribute name
-			picto_class = re.findall('(.+?)\s=', line)
-			picto_class = picto_class[0]
-			
-			# find attribute values
-			extracted_values = re.findall('\[\s(.+?)\s\]', line)
-			extracted_values = extracted_values[0].replace(" ", "").split(';')
+		while c != '':
+
+			# get picto class
+			while (c != ' ' and c != '= '):
+				picto_class = picto_class + c
+				c = f.read(1)
+
+			# read remaining '= [ '
+			print('skipping "= [ "')
+			print('CHAR', c)
+			while c != '[':
+				c = f.read(1)
+			c = f.read(1)
+			print('CHAR', c)
+
+			if c == ' ' and number_classes_analysed >= 13 :
+				print(number_classes_analysed)
+				print('END SPACE. FINISHED !!!')
+				return;
+
+			fin = True
+			extracted_values = []
+
+			while (c != ']' and fin):
+
+				# read value
+				value = ''
+				rank = 0
+				
+				c = f.read(1)
+				while c != ' ':
+					value = value + c
+					c = f.read(1)
+
+				# read remaining '; '
+				c = f.read(1)
+				c = f.read(1)
+				if value == '-1.#IND':
+					extracted_values.insert(rank, float(0.0))
+				elif value in classes :
+					picto_class = value
+					fin = False
+				else:
+					extracted_values.insert(rank, float(value))
+				rank = rank + 1
+
+			print('INCREMENT', number_classes_analysed)
+			number_classes_analysed = number_classes_analysed + 1
 
 			for x in range(0, len(extracted_values)):
 
@@ -64,8 +105,6 @@ def toWeka(filepath):
 
 				else :
 					print('problem')
-
-			line = f.readline().rstrip()
 
 	finally:
 		# close file
@@ -110,7 +149,7 @@ def write_arff(result_filename):
 						res.write(str(value) + ',')
 					except ValueError:
 						print('"-1.#IND" detected. Writing 0.0')
-						res.write("0.0" + ',')
+						res.write('0.0,')
 
 				res.write(p.classe + '\n')
 	
@@ -127,6 +166,6 @@ def main():
 
 	print('--------------example----------------')
 	initiate_classes()
-	weka_process_folder("C:/Users/Bamako/Documents/5INFO/IRF/valeurs")
+	weka_process_folder("C:/Users/Bamako/Documents/5INFO/IRF/test/")
 
 main()
